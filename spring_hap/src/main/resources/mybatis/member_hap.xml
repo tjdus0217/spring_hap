@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spring.model.mapper.Member_hapMapper">
+
+<!-- 	int create(Member_hapDTO dto); -->
+<insert id="member_create" parameterType="Member_hapDTO">
+	insert into member_hap(member_num, member_id, member_name, member_passwd, 
+                       member_phone, member_email, member_birth, member_fname, member_grade)
+            	values(
+            		   (SELECT NVL(MAX(member_num),0)+1 FROM member_hap), #{member_id}, #{member_name}, #{member_passwd}, 
+            		   #{member_phone}, #{member_email}, #{member_birth}, #{member_fname}, 'A')        
+</insert>
+
+<!-- 	int duplicatedId(String member_id);  -->
+<select id="duplicatedId" parameterType="String" resultType="int">
+	select count(member_id) 
+	from member_hap 
+	where member_id=#{member_id}
+</select>
+
+<!--	int duplicateEmail(String member_email); -->
+<select id="duplicatedEmail" parameterType="String" resultType="int">
+	select count(member_email) 
+	from member_hap 
+	where member_email=#{member_email}
+</select>
+
+
+<!-- 	String getMember_fname(String member_id); --> 
+<!-- <select id="getMember_fname" parameterType="String" resultType="String"> -->
+<!-- 	SELECT member_fname -->
+<!-- 	FROM member_hap  -->
+<!-- 	where member_fname=#{member_fname} -->
+<!-- </select> -->
+
+
+
+
+
+</mapper>

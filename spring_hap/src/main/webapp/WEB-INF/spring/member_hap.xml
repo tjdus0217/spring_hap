@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!DOCTYPE  tiles-definitions PUBLIC 
+    "-//Aapche Software Foundation//DTD Tiles Configuration 2.0//EN" 
+    "http://tiles.apache.org/dtds/tiles-config_2_0.dtd"> 
+ 
+<tiles-definitions> 
+    
+    <definition name="main" template="/WEB-INF/views/template/template.jsp"> 
+        <put-attribute name="header" value="/WEB-INF/views/template/top.jsp" /> 
+    </definition> 
+   
+   	<definition name="/home" extends="main"> 
+        <put-attribute name="title" value="기본페이지" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/home.jsp" /> 
+    </definition>   
+    
+     <definition name="/member_hap/agree" extends="main"> 
+        <put-attribute name="title" value="HAP회원가입 동의약관" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/agreement.jsp" /> 
+    </definition>
+    
+    <definition name="/member_hap/member_create" extends="main"> 
+        <put-attribute name="title" value="HAP회원가입 양식" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/member_create.jsp" /> 
+    </definition>
+    
+   <definition name="/member_hap/preProc" extends="main"> 
+        <put-attribute name="title" value="에러메세지확인" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/preProc.jsp" /> 
+    </definition>
+    
+     
+<!--     <definition name="/list" extends="main">  -->
+<!--         <put-attribute name="title" value="회원 목록" ></put-attribute>  -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/member/list.jsp" />  -->
+<!--     </definition>  -->
+	
+<!--     <definition name="/read" extends="main">  -->
+<!--         <put-attribute name="title" value="회원정보조회" ></put-attribute>  -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/member/read.jsp" />  -->
+<!--     </definition> -->
+    
+    
+<!--     <definition name="/update" extends="main">  -->
+<!--         <put-attribute name="title" value="회원정보수정" ></put-attribute>  -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/member/updateForm.jsp" />  -->
+<!--     </definition>   -->
+    
+<!--          <definition name="/updatePw" extends="main">  -->
+<!--         <put-attribute name="title" value="비밀번호수정" ></put-attribute>  -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/member/updatePwForm.jsp" />  -->
+<!--     </definition>  -->
+    
+<!--         <definition name="/updateFile" extends="main">  -->
+<!--         <put-attribute name="title" value="회원사진수정" ></put-attribute>  -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/member/updateFileForm.jsp" />  -->
+<!--     </definition>  -->
+    
+<!--     <definition name="/updateProc" extends="main">  -->
+<!--         <put-attribute name="title" value="수정처리" ></put-attribute>  -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/updateProc.jsp" />  -->
+<!--     </definition>   -->
+    
+<!--         <definition name="/delete" extends="main">  -->
+<!--         <put-attribute name="title" value="회원탈퇴" ></put-attribute>  -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/member/deleteForm.jsp" />  -->
+<!--     </definition>   -->
+    
+<!--     <definition name="/deleteProc" extends="main">  -->
+<!--         <put-attribute name="title" value="삭제처리" ></put-attribute>  -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/deleteProc.jsp" />  -->
+<!--     </definition>   -->
+    
+    
+<!--     <definition name="/login" extends="main">  -->
+<!--         <put-attribute name="title" value="Spring4.3.14 Example board 로그인" ></put-attribute>  -->
+<!--         <put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />  -->
+<!--     </definition>     -->
+   
+</tiles-definitions>
