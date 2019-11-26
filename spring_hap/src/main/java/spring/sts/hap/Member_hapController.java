@@ -3,13 +3,18 @@ package spring.sts.hap;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import spring.model.mapper.Member_hapMapper;
@@ -58,12 +63,12 @@ public class Member_hapController {
 		return map;
 	}
 	
-	@GetMapping("/member_hap/member_create")
+	@RequestMapping("/member_hap/member_create")
 	public String member_create() {
 		return "/member_hap/member_create";
 	}
 	
-	@PostMapping("/member_hap/member_create")
+	@PostMapping("/member_hap/member_createProc")
 	public String member_createProc(Member_hapDTO dto, Model model, HttpServletRequest request) {
 		
 		String url="/member_hap/preProc";
@@ -72,7 +77,7 @@ public class Member_hapController {
 			model.addAttribute("str", "중복된 아이디입니다. 아이디를 다시 입력해주세요");
 		}else if(mapper.duplicatedEmail(dto.getMember_email())==1){
 			model.addAttribute("str", "중복된 이메일입니다. 이메일을 다시 입력해주세요");
-		}
+		}else {
 		
 			String basePath=request.getRealPath("/storage");
 			
@@ -87,15 +92,100 @@ public class Member_hapController {
 			int flag=mapper.member_create(dto);
 			
 			if(flag==1) {
-				return "redirect:/home";
+				return "redirect:/";
 			}else {
 				model.addAttribute("str", "알 수 없는 이유로 회원가입에 실패하였습니다.");
-				return url;
-			}
-			
-		
-		
+			}		
+     	}
+		return url;
 	}
+	
+	@GetMapping("/member_hap/login")
+	public String login(HttpServletRequest request) {
+		String c_member_id="";
+		String c_member_id_val="";
+		
+		Cookie[] cookies=request.getCookies();
+		Cookie cookie=null;
+		
+		if(cookies!=null){
+			for(int i=0;i<cookies.length;i++){
+				cookie=cookies[i];
+				
+				if(cookie.getName().equals("c_member_id")){
+					c_member_id=cookie.getValue();
+				 }else if(cookie.getName().equals("c_member_id_val")){ 
+					c_member_id_val=cookie.getValue();
+				}
+			}
+		}
+		
+		request.setAttribute("c_member_id", c_member_id);
+		request.setAttribute("c_member_id_val", c_member_id_val);
+		
+		return "/member_hap/login";
+	}
+	
+	
+	@PostMapping("/member_hap/login")
+	public String login(@RequestParam Map<String, String> map, HttpSession session,
+					HttpServletRequest request, HttpServletResponse response, Model model) { 
+
+		int flag=mapper.loginCheck(map);  //여기면 flag 가 true
+		
+		if(flag==1){
+			String member_grade=mapper.getMember_grade(map.get("member_id"));
+			
+			session.setAttribute("member_id", map.get("member_id"));
+			session.setAttribute("member_grade", member_grade);
+			
+			Cookie cookie=null;
+			
+			String c_member_id=request.getParameter("c_member_id");
+			
+			if(c_member_id !=null){
+				cookie=new Cookie("c_member_id", "Y");
+				cookie.setMaxAge(60*60);
+				response.addCookie(cookie);
+				
+				cookie=new Cookie("c_member_id_val", map.get("member_id"));
+				cookie.setMaxAge(60*60);
+				response.addCookie(cookie);
+				
+			}else{    //check를 푼 경우, 기존 쿠키의 유지값을 0으로 바꿔서 없애는 것
+				cookie=new Cookie("c_member_id", "");
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+				
+				cookie=new Cookie("c_member_id_val", "");
+				cookie.setMaxAge(0);
+				response.addCookie(cookie);
+			}
+		}
+			if(flag==1) {
+				
+				if(map.get("rurl")!=null && !map.get("rurl").equals("")) {
+					model.addAttribute("member_num", map.get("member_num"));
+					model.addAttribute("nPage", map.get("nPage"));
+					model.addAttribute("nowPage", map.get("nowPage"));
+					model.addAttribute("col", map.get("col"));
+					model.addAttribute("word", map.get("word"));
+					
+					return "redirect:"+map.get("rurl");  //rurl이 받아온 경로의 read페이지로
+				} else {
+					return "redirect:/";
+				}
+				
+			}else {
+				request.setAttribute("str", "아이디 또는 비밀번호가 잘못 입력하였거나<br>회원이 아닙니다. 회원가입을 해주세요.");
+				return "/member_hap/preProc";
+			
+			}
+		
+		}
+	
+	
+	
 	
 	
 }

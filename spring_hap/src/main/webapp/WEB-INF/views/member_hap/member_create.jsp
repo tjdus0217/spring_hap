@@ -18,12 +18,9 @@
 			document.frm.member_id.focus();
 		} else {
 			var url = "idcheck"
-			var param = "member_id=" + member_id;
+			url+= "?member_id=" + member_id;
 
-			$.get(url, param, function(data, textStatus) {
-
-				//var result=eval("("+data+")");
-
+			$.get(url, function(data, textStatus) {
 				$("#idcheck").text(data.str);
 
 			})
@@ -110,7 +107,7 @@
 		</label>
 
 
-		<form class="form-horizontal" action="member_create" method="post"
+		<form class="form-horizontal" action="member_createProc" method="post"
 			name="frm" enctype="multipart/form-data"
 			onsubmit="return inCheck(this)">
 

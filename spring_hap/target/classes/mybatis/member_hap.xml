@@ -11,7 +11,7 @@
                        member_phone, member_email, member_birth, member_fname, member_grade)
             	values(
             		   (SELECT NVL(MAX(member_num),0)+1 FROM member_hap), #{member_id}, #{member_name}, #{member_passwd}, 
-            		   #{member_phone}, #{member_email}, #{member_birth}, #{member_fname}, 'A')        
+            		   #{member_phone}, #{member_email}, #{member_birth}, #{member_fname, jdbcType=VARCHAR}, 'A')        
 </insert>
 
 <!-- 	int duplicatedId(String member_id);  -->
@@ -36,8 +36,20 @@
 <!-- 	where member_fname=#{member_fname} -->
 <!-- </select> -->
 
+<!-- 	String getMember_grade(String member_id); -->
+<select id="getMember_grade" parameterType="String" resultType="String">
+	SELECT member_grade 
+	FROM member_hap 
+	where member_id=#{member_id}
+</select>
 
 
+<!-- 	int loginCheck(Map<String, String> map); -->
+<select id="loginCheck" parameterType="Map" resultType="int">                
+	 SELECT COUNT(member_id) AS cnt 
+	 FROM member_hap    
+	 WHERE member_id=#{member_id} AND member_passwd=#{member_passwd}  
+</select>
 
 
 </mapper>

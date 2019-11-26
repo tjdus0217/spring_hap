@@ -10,7 +10,11 @@
 <body>
 	<div class="container">
 		<div class="well well-lg">
-			<br> ${str }
+			<br> 
+			
+			<label class="col-sm-offset-2 col-sm-10">
+			${str }
+			</label>
 		</div>
 
 		<button onclick="history.back()" class="btn btn-default">다시시도</button>

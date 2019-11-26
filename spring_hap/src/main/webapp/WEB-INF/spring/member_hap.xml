@@ -29,6 +29,11 @@
         <put-attribute name="body" value="/WEB-INF/views/member_hap/preProc.jsp" /> 
     </definition>
     
+    <definition name="/member_hap/login" extends="main"> 
+        <put-attribute name="title" value="HAP 로그인" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/login.jsp" /> 
+    </definition>  
+    
      
 <!--     <definition name="/list" extends="main">  -->
 <!--         <put-attribute name="title" value="회원 목록" ></put-attribute>  -->

@@ -22,7 +22,7 @@
 						<li><a href="">Board</a></li>
 						<li><a href="">Reservation</a></li>
 						<li><a href="">Notice</a></li>
-						<li><a href="">Log-in</a></li>
+						<li><a href="${root}/member_hap/login">Log-in</a></li>
 						<li><a href="${root}/member_hap/agree">Join</a></li>
 						
 					</ul>
