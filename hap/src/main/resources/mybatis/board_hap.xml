@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spring.model.mapper.Board_hapMapper">
+
+
+	<select id="read" parameterType="int" resultType="Board_hapDTO">
+	
+		select * from board_hap
+		where board_num = #{board_num}
+	
+	
+	</select>
+
+	<select id="list" parameterType="Map" resultType="Board_hapDTO">
+
+SELECT board_num, board_name, board_cnt, board_address, board_map, r 
+FROM( 
+    SELECT board_num, board_name, board_cnt, board_address, board_map, rownum r 
+    FROM ( 
+        SELECT board_num, board_name, board_cnt, board_address, board_map
+        FROM board_hap 
+        ORDER BY board_num DESC  
+    						) 
+						) 
+		
+		<![CDATA[
+					WHERE r >= #{sno} and r <=#{eno}
+		]]>
+	</select>
+
+	<select id="total" parameterType="Map" resultType="int">
+      select count(*) from board_hap
+      <where>
+         <choose>
+            <when test="col=='wname'">
+               wname like '%'||#{word}||'%'
+            </when>
+            <when test="col=='title'">
+               title like '%'||#{word}||'%'
+            </when>
+            <when test="col=='content'">
+               content like '%'||#{word}||'%'
+            </when>
+            <when test="col=='title_content'">
+               title like '%'||#{word}||'%'
+               or
+               content like
+               '%'||#{word}||'%'
+            </when>
+         </choose>
+      </where>
+   </select>
+   
+   <insert id="create" parameterType="Board_hapDTO">
+   	
+   insert into board_hap
+   (board_num, board_name, board_address, board_map, board_account, board_content)
+	values((SELECT NVL(MAX(board_num), 0) + 1 FROM board_hap), #{board_name}
+	, #{board_address}, #{board_map}, #{board_account}, #{board_content})
+   
+   </insert>
+
+	
+
+
+</mapper>

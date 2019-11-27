@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+		  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+				 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="spring.model.mapper.Member_hapMapper">
+
+<insert id="create" parameterType="Member_hapDTO" >
+INSERT INTO member_hap
+	(member_num, member_id, member_name, member_passwd, 
+	member_phone, member_email, member_birth, member_fname, member_grade)  
+VALUES(
+	(SELECT NVL(MAX(member_num),0)+1 FROM member_hap), #{member_id}, #{member_name}, #{member_passwd}, 
+	#{member_phone}, #{member_email}, #{member_birth}, #{member_fname}, 'A');
+	      
+</insert>
+
+
+</mapper>
