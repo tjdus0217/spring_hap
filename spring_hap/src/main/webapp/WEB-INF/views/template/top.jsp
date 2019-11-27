@@ -2,6 +2,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <c:set var="root" value="${pageContext.request.contextPath }"></c:set>
 
+<c:choose>
+	<c:when test="${not empty sessionScope.member_id && sessionScope.member_grade== 'H'}">
+		<c:set var="str">관리자페이지입니다.</c:set>
+	</c:when>
+	<c:when test="${not empty sessionScope.member_id && sessionScope.member_grade!= 'H'}">
+		<c:set var="str">안녕하세요. ${sessionScope.member_id }님!</c:set>
+	</c:when>
+	<c:otherwise>
+		<c:set var="str">기본페이지</c:set>
+	</c:otherwise>
+
+</c:choose>
+
+
 <!DOCTYPE HTML>
 
 <html>
@@ -30,8 +44,23 @@
 				<li><a href="">Board</a></li>
 				<li><a href="">Reservation</a></li>
 				<li><a href="">Notice</a></li>
-				<li><a href="">Log-in</a></li>
-				<li><a href="${root}/member_hap/agree">Join</a></li>
+				
+				<c:choose>
+				<c:when test="${empty sessionScope.member_id }">
+
+					<li><a href="${root}/member_hap/login">Sign-in</a></li>
+				    <li><a href="${root}/member_hap/agree">Join</a></li>
+
+				</c:when>
+
+				<c:otherwise>
+					
+					<li><a href="${root}/member_hap/member_read">Profile</a></li>
+					<li><a href="${root}/member_hap/member_update">Update</a></li>
+					<li><a href="${root}/member_hap/logout">Sign-out</a></li>
+				</c:otherwise>
+			</c:choose>
+				
 
 			</ul>
 		</nav>

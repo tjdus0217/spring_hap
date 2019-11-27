@@ -51,5 +51,18 @@
 	 WHERE member_id=#{member_id} AND member_passwd=#{member_passwd}  
 </select>
 
+<!-- 	String findId(Map map); -->
+<select id="findId" parameterType="Map" resultType="String">
+	SELECT member_id 
+	FROM member_hap 
+	where member_name=#{member_name} and member_email=#{member_email} 
+</select>
+
+<!-- 	String findPasswd(Map map); -->
+<select id="findPasswd" parameterType="Map" resultType="String">
+	SELECT member_passwd
+	FROM member_hap 
+	where member_name=#{member_name} and member_id=#{member_id} and member_email=#{member_email} 
+</select>
 
 </mapper>

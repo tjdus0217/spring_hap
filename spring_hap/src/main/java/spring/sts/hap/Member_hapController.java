@@ -185,6 +185,73 @@ public class Member_hapController {
 		}
 	
 	
+	@GetMapping("/member_hap/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		
+		return "redirect:/";
+	}
+	
+	
+	@GetMapping("/member_hap/idFind")
+	public String idFind() {
+		
+		return "member_hap/idFind";
+	}
+	
+	
+	
+	@PostMapping("/member_hap/idFind")
+	public String idFind(String member_name, String member_email,Model model) {
+		
+		Map map=new HashMap();
+		map.put("member_name", member_name);
+		map.put("member_email", member_email);
+					
+		String member_id=mapper.findId(map);	 
+		String str="";
+		
+		if(member_id!=null) {
+			model.addAttribute("member_id", member_id);
+			str= "당신의 아이디는 "+member_id+ " 입니다.";
+		}else { 
+			 str="가입된 회원이 아닙니다.";		
+		 } 
+		
+		model.addAttribute("str", str);
+		return "member_hap/idFind_Proc";
+	}
+	
+	
+	@GetMapping("/member_hap/passwdFind")
+	public String passwdFind() {
+		
+		return "member_hap/passwdFind";
+	}
+	
+	
+	
+	@PostMapping("/member_hap/passwdFind")
+	public String passwdFind( String member_name, String member_id, String member_email, Model model) {
+		
+		Map map=new HashMap();
+		map.put("member_name", member_name);
+		map.put("member_id", member_id);
+		map.put("member_email", member_email);
+					
+		String member_passwd=mapper.findPasswd(map);	
+		String str="";
+		
+		if(member_passwd!=null) {
+			model.addAttribute("member_passwd", member_passwd);
+			str= "당신의 비밀번호는 "+member_passwd+ " 입니다.";
+		}else { 
+			 str="입력한 정보가 맞는 회원정보가 없습니다.";		
+		 } 
+		
+		model.addAttribute("str", str);
+		return "member_hap/passwdFind_Proc";
+	}
 	
 	
 	

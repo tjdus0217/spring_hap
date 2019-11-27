@@ -18,4 +18,8 @@ public interface Member_hapMapper {
 
 	String getMember_grade(String member_id);
 
+	String findId(Map map);
+
+	String findPasswd(Map map);
+
 }
