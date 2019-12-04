@@ -35,51 +35,36 @@
     </definition>  
     
      
-<!--     <definition name="/list" extends="main">  -->
-<!--         <put-attribute name="title" value="회원 목록" ></put-attribute>  -->
-<!--         <put-attribute name="body" value="/WEB-INF/views/member/list.jsp" />  -->
-<!--     </definition>  -->
+    <definition name="/member_hap/member_list" extends="main"> 
+        <put-attribute name="title" value="회원 목록" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/member_list.jsp" /> 
+    </definition> 
 	
-<!--     <definition name="/read" extends="main">  -->
-<!--         <put-attribute name="title" value="회원정보조회" ></put-attribute>  -->
-<!--         <put-attribute name="body" value="/WEB-INF/views/member/read.jsp" />  -->
-<!--     </definition> -->
+    <definition name="/member_hap/member_read" extends="main"> 
+        <put-attribute name="title" value="회원정보조회" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/member_read.jsp" /> 
+    </definition>
+    
+    <definition name="/member_hap/member_delete" extends="main"> 
+        <put-attribute name="title" value="회원탈퇴" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/member_delete.jsp" /> 
+    </definition>  
     
     
-<!--     <definition name="/update" extends="main">  -->
-<!--         <put-attribute name="title" value="회원정보수정" ></put-attribute>  -->
-<!--         <put-attribute name="body" value="/WEB-INF/views/member/updateForm.jsp" />  -->
-<!--     </definition>   -->
+    <definition name="/member_hap/member_update" extends="main"> 
+        <put-attribute name="title" value="회원정보수정" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/member_update.jsp" /> 
+    </definition>  
     
-<!--          <definition name="/updatePw" extends="main">  -->
-<!--         <put-attribute name="title" value="비밀번호수정" ></put-attribute>  -->
-<!--         <put-attribute name="body" value="/WEB-INF/views/member/updatePwForm.jsp" />  -->
-<!--     </definition>  -->
+         <definition name="/member_hap/member_updatePw" extends="main"> 
+        <put-attribute name="title" value="비밀번호수정" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/member_updatePw.jsp" /> 
+    </definition> 
     
-<!--         <definition name="/updateFile" extends="main">  -->
-<!--         <put-attribute name="title" value="회원사진수정" ></put-attribute>  -->
-<!--         <put-attribute name="body" value="/WEB-INF/views/member/updateFileForm.jsp" />  -->
-<!--     </definition>  -->
+        <definition name="/member_hap/member_updateFile" extends="main"> 
+        <put-attribute name="title" value="회원사진수정" ></put-attribute> 
+        <put-attribute name="body" value="/WEB-INF/views/member_hap/member_updateFile.jsp" /> 
+    </definition> 
     
-<!--     <definition name="/updateProc" extends="main">  -->
-<!--         <put-attribute name="title" value="수정처리" ></put-attribute>  -->
-<!--         <put-attribute name="body" value="/WEB-INF/views/updateProc.jsp" />  -->
-<!--     </definition>   -->
-    
-<!--         <definition name="/delete" extends="main">  -->
-<!--         <put-attribute name="title" value="회원탈퇴" ></put-attribute>  -->
-<!--         <put-attribute name="body" value="/WEB-INF/views/member/deleteForm.jsp" />  -->
-<!--     </definition>   -->
-    
-<!--     <definition name="/deleteProc" extends="main">  -->
-<!--         <put-attribute name="title" value="삭제처리" ></put-attribute>  -->
-<!--         <put-attribute name="body" value="/WEB-INF/views/deleteProc.jsp" />  -->
-<!--     </definition>   -->
-    
-    
-<!--     <definition name="/login" extends="main">  -->
-<!--         <put-attribute name="title" value="Spring4.3.14 Example board 로그인" ></put-attribute>  -->
-<!--         <put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />  -->
-<!--     </definition>     -->
    
 </tiles-definitions>

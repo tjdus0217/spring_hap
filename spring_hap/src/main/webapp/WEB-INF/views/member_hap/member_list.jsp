@@ -20,7 +20,8 @@
 
 <body>
 	<div class="container">
-		<h2 class="col-sm-offset-2 col-sm-10">회원목록</h2>
+	<br>
+		<h2 class="col-sm-offset-2 col-sm-10">Member List</h2>
 		<br>
 		<form class="form-inline" method="post" action="list">
 
@@ -38,7 +39,7 @@
 					required="required" value="${word}">
 			</div>
 
-			<button class="btn btn-default">검색</button>
+			<button class="btn btn-default">Search</button>
 			<button class="btn btn-default" type="button"
 				onclick="location.href='${pageContext.request.contextPath}/member_hap/member_create'">등록</button>
 
@@ -52,27 +53,27 @@
 					<td rowspan="5" class="col-sm-2"><img
 						src="${pageContext.request.contextPath}/storage/${dto.member_fname}"
 						class="img-rounded" width="200px" height="200px"></td>
-					<th class="col-sm-2">아이디</th>
+					<th class="col-sm-2">ID: </th>
 					<td class="col-sm-8"><a href="javascript:read('${dto.member_id}')">${dto.member_id}</a></td>
 				</tr>
 
 				<tr>
-					<th class="col-sm-2">이름</th>
+					<th class="col-sm-2">Name: </th>
 					<td class="col-sm-8">${dto.member_name}</td>
 				</tr>
 
 				<tr>
-					<th class="col-sm-2">생년월일</th>
+					<th class="col-sm-2">Birth: </th>
 					<td class="col-sm-8">${dto.member_birth}</td>
 				</tr>
 
 				<tr>
-					<th class="col-sm-2">전화번호</th>
+					<th class="col-sm-2">Phone: </th>
 					<td class="col-sm-8">${dto.member_phone}</td>
 				</tr>
 
 				<tr>
-					<th class="col-sm-2">이메일</th>
+					<th class="col-sm-2">E-mail: </th>
 					<td class="col-sm-8">${dto.member_email}</td>
 				</tr>
 

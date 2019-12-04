@@ -61,6 +61,10 @@
 				</c:otherwise>
 			</c:choose>
 				
+			<c:if test="${not empty sessionScope.member_id && sessionScope.member_grade=='H' }">
+				<li><a href="${root}/admin/member_list">List</a></li>
+			</c:if>
+				
 
 			</ul>
 		</nav>

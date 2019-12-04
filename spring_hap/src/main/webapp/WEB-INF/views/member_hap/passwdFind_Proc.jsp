@@ -29,5 +29,6 @@
 			<button class="btn btn-default" onclick="location.href='passwdFind'">다시시도</button>
 			<button class="btn btn-default" onclick="window.close()">닫기</button>
 		</div>
+		</div>
 </body>
 </html>

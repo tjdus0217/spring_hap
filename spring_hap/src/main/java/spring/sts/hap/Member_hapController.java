@@ -1,6 +1,7 @@
 package spring.sts.hap;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
@@ -202,7 +203,7 @@ public class Member_hapController {
 	
 	
 	@PostMapping("/member_hap/idFind")
-	public String idFind(String member_name, String member_email,Model model) {
+	public String idFind(String member_name, String member_email, Model model) {
 		
 		Map map=new HashMap();
 		map.put("member_name", member_name);
@@ -251,6 +252,139 @@ public class Member_hapController {
 		
 		model.addAttribute("str", str);
 		return "member_hap/passwdFind_Proc";
+	}
+	
+	
+	@RequestMapping("/admin/member_list")
+	public String list(HttpServletRequest request) {
+		
+		String col= Utility.checkNull(request.getParameter("col"));
+		String word= Utility.checkNull(request.getParameter("word"));
+		
+		if(col.equals("total")) word="";
+		
+		int nowPage=1;
+		int recordPerPage=3;
+		
+		if(request.getParameter("nowPage")!=null){
+			nowPage=Integer.parseInt(request.getParameter("nowPage"));
+		}
+		
+		int sno=(nowPage-1)*recordPerPage+1;
+		int eno=nowPage*recordPerPage;
+		
+		Map map=new HashMap();
+		map.put("col", col);
+		map.put("word", word);
+		map.put("sno", sno);
+		map.put("eno", eno);
+		
+		List<Member_hapDTO> member_list=mapper.member_list(map);
+		
+		int total=mapper.member_total(map); 
+		String paging=Utility.paging(total, nowPage, recordPerPage, col, word);
+		
+		request.setAttribute("member_list", member_list);
+		request.setAttribute("paging", paging);
+		request.setAttribute("col", col);
+		request.setAttribute("word", word);
+		request.setAttribute("nowPage", nowPage);
+		
+		return "/member_hap/member_list";
+	}
+	
+	
+	@GetMapping("/member_hap/member_read")
+	public String read(String member_id, HttpSession session, Model model) {
+		
+		if(member_id==null) {
+			member_id= (String)session.getAttribute("member_id");
+		}
+
+		Member_hapDTO dto=mapper.member_read(member_id);
+		
+		model.addAttribute("dto", dto);
+		
+		return "/member_hap/member_read";
+	}
+	
+	@GetMapping("/member_hap/member_delete")
+	public String delete() {
+		
+		return "/member_hap/member_delete";
+	}
+	
+	@PostMapping("/member_hap/member_delete")
+	public String delete(String member_id, String oldfile, 
+			HttpServletRequest request, HttpSession session) {
+		
+		String basePath=request.getRealPath("/storage");
+		
+		 int flag = mapper.member_delete(member_id);
+		    
+		   if(flag==1){
+			   session.invalidate();
+			   
+		   }
+		    if(flag==1 && !oldfile.equals("member.jpg")){
+		      Utility.deleteFile(basePath, oldfile);
+		    }
+		 			
+		    if(flag==1){
+		    	return "redirect:/";
+		     }else{
+		    	 request.setAttribute("str", "회원탈퇴에 실패하였습니다. 다시 시도 해주세요.");
+				return "/member_hap/preProc";
+		      }
+	}
+	
+	@GetMapping("/member_hap/member_update")
+	public String update(String member_id, HttpSession session, Model model) {
+		
+		if(member_id==null) {
+			member_id= (String)session.getAttribute("member_id");
+		}
+
+		Member_hapDTO dto=mapper.member_read(member_id);
+		
+		model.addAttribute("dto", dto);
+		
+		return "/member_hap/member_update";
+	}
+	
+	@PostMapping("/member_hap/member_update")
+	public String update(Member_hapDTO dto,Model model) {
+		
+		int flag=mapper.member_update(dto);
+		
+		if(flag==1) {
+			model.addAttribute("member_id", dto.getMember_id());
+			return "redirect:./member_read";
+			
+		}else {
+	    	String str= "회원정보 수정에 실패하였습니다. 다시 시도 해주세요.";
+			return "/member_hap/preProc";
+		}
+		
+	}
+	
+	@GetMapping("/member_hap/email_Form")
+	public String email_Form() {
+		
+		return "member_hap/email_Form";
+	}
+	
+	@PostMapping("/member_hap/email_Proc")
+	public String email_Proc(String member_email,Model model) {
+		
+		int cnt=mapper.duplicatedEmail(member_email);
+		
+		boolean flag=false;
+		
+		if(cnt>0) flag=true;
+		model.addAttribute("flag", flag);
+		
+		return "member_hap/email_Proc";
 	}
 	
 	

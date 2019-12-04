@@ -13,7 +13,7 @@
 	 var url="idFind";
 	 
 	 var wr= window.open(url,"아이디찾기","width=400, height=350");
-		wr.moveTo((window.screen.width-400)/2, (window.screen.height-350)/2); 	 
+		wr.moveTo((window.screen.width-400)/2, (window.screen.height-350)/2); 	  
  }  
  
  function passwdFind(){
@@ -48,8 +48,7 @@
 				<label class="control-label col-sm-2" for="member_id">아이디:</label>
 				<div class="col-sm-4">
 					<input type="text" class="form-control" id="member_id"
-						placeholder="Enter id" name="member_id" required="required"
-						value='${c_member_id_val }'>
+						placeholder="Enter id" name="member_id" required="required">
 				</div>
 			</div>
 
@@ -82,10 +81,8 @@
 
 					<button type="button" class="btn btn-default"
 						onclick="location.href='agree'">회원가입</button>
-					<button type="button" class="btn btn-default" onclick="idFind()">아이디
-						찾기</button>
-					<button type="button" class="btn btn-default"
-						onclick="passwdFind()">비밀번호 찾기</button>
+					<button type="button" class="btn btn-default" onclick="idFind()">아이디 찾기</button>
+					<button type="button" class="btn btn-default" onclick="passwdFind()">비밀번호 찾기</button>
 				</div>
 			</div>
 		</form>
